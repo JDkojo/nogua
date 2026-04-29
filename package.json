@@ -1,0 +1,41 @@
+{
+  "name": "real-estate-portal-platform",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:migrate": "node database/migrate.js"
+  },
+  "dependencies": {
+    "@relume_io/relume-ui": "1.2.0",
+    "@relume_io/relume-tailwind": "1.2.0",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.2.0",
+    "framer-motion": "^11.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "next": "14.2.3",
+    "nodemailer": "^6.9.13",
+    "pg": "^8.11.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1",
+    "twilio": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20",
+    "@types/nodemailer": "^6.4.14",
+    "@types/pg": "^8.11.5",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
+  }
+}

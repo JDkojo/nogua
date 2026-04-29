@@ -1,0 +1,639 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   REAL ESTATE PORTAL — GLOBAL DESIGN SYSTEM
+   ============================================================ */
+
+/* ─── FONT IMPORT ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ─── CSS DESIGN TOKENS ───────────────────────────────────── */
+:root {
+  /* Brand */
+  --color-brand:          #1E3A8A;
+  --color-brand-hover:    #1e40af;
+  --color-brand-action:   #2563EB;
+  --color-brand-action-hover: #1d4ed8;
+
+  /* Status */
+  --color-success:  #10B981;
+  --color-warning:  #F97316;
+  --color-error:    #EF4444;
+  --color-info:     #38BDF8;
+  --color-gold:     #F59E0B;
+
+  /* Surfaces */
+  --color-surface:       #F8FAFC;
+  --color-surface-dark:  #0F172A;
+  --color-card:          #FFFFFF;
+  --color-card-dark:     #1E293B;
+  --color-border:        #E2E8F0;
+  --color-border-dark:   #334155;
+
+  /* Text */
+  --color-ink:        #0F172A;
+  --color-ink-muted:  #64748B;
+  --color-ink-subtle: #94A3B8;
+  --color-ink-inverse:#F8FAFC;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decel:    cubic-bezier(0.0, 0, 0.2, 1);
+  --ease-accel:    cubic-bezier(0.4, 0, 1, 1);
+  --dur-micro:  150ms;
+  --dur-fast:   200ms;
+  --dur-base:   250ms;
+  --dur-slow:   350ms;
+  --dur-page:   300ms;
+
+  /* Radius */
+  --radius-card:  12px;
+  --radius-modal: 16px;
+  --radius-badge: 6px;
+}
+
+/* ─── BASE RESET ──────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+
+  /* Dark mode body */
+  .dark body {
+    background-color: var(--color-surface-dark);
+    color: var(--color-ink-inverse);
+  }
+
+  /* Focus ring — accessible, brand-colored */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-action);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Remove default focus for mouse users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Smooth image rendering */
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Selection color */
+  ::selection {
+    background-color: rgba(37, 99, 235, 0.15);
+    color: var(--color-ink);
+  }
+}
+
+/* ─── COMPONENT LAYER ─────────────────────────────────────── */
+@layer components {
+
+  /* ── PROPERTY CARD ─────────────────────────────────────── */
+  .re-card {
+    @apply bg-white rounded-card shadow-card border border-surface-border
+           transition-all duration-slow ease-[cubic-bezier(0.4,0,0.2,1)];
+  }
+
+  .re-card:hover {
+    @apply shadow-card-hover -translate-y-1.5;
+  }
+
+  .re-card-dark {
+    @apply bg-surface-card-dark border-surface-border-dark;
+  }
+
+  /* Property card image zoom */
+  .re-card-img {
+    @apply overflow-hidden;
+  }
+
+  .re-card-img img {
+    @apply transition-transform duration-slow ease-[cubic-bezier(0.4,0,0.2,1)];
+  }
+
+  .re-card:hover .re-card-img img {
+    transform: scale(1.05);
+  }
+
+  /* ── BUTTONS ───────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-brand text-white font-semibold
+           px-5 py-2.5 rounded-card
+           transition-all duration-fast ease-[cubic-bezier(0.4,0,0.2,1)]
+           hover:bg-brand-hover hover:-translate-y-px hover:shadow-card-md
+           active:translate-y-0 active:shadow-none
+           focus-visible:ring-2 focus-visible:ring-brand-action focus-visible:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-white text-brand font-semibold border border-brand
+           px-5 py-2.5 rounded-card
+           transition-all duration-fast ease-[cubic-bezier(0.4,0,0.2,1)]
+           hover:bg-brand hover:text-white hover:-translate-y-px hover:shadow-card-md
+           active:translate-y-0
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-action {
+    @apply inline-flex items-center justify-center gap-2
+           bg-brand-action text-white font-semibold
+           px-5 py-2.5 rounded-card
+           transition-all duration-fast ease-[cubic-bezier(0.4,0,0.2,1)]
+           hover:bg-brand-action-hover hover:-translate-y-px hover:shadow-card-md
+           active:translate-y-0
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           text-ink-muted font-medium
+           px-4 py-2 rounded-card
+           transition-all duration-fast ease-[cubic-bezier(0.4,0,0.2,1)]
+           hover:bg-surface-border hover:text-ink
+           active:bg-surface-border;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2
+           bg-error text-white font-semibold
+           px-5 py-2.5 rounded-card
+           transition-all duration-fast ease-[cubic-bezier(0.4,0,0.2,1)]
+           hover:bg-red-600 hover:-translate-y-px
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* ── FORM INPUTS ───────────────────────────────────────── */
+  .re-input {
+    @apply w-full rounded-card border border-surface-border bg-white
+           px-4 py-2.5 text-sm text-ink placeholder:text-ink-subtle
+           transition-all duration-fast ease-[cubic-bezier(0.4,0,0.2,1)]
+           focus:outline-none focus:border-brand-action focus:shadow-input-focus
+           disabled:bg-surface disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .re-input-error {
+    @apply border-error focus:border-error focus:shadow-[0_0_0_3px_rgba(239,68,68,0.15)];
+  }
+
+  .re-input-dark {
+    @apply bg-surface-card-dark border-surface-border-dark text-ink-inverse
+           placeholder:text-ink-subtle;
+  }
+
+  .re-label {
+    @apply block text-sm font-medium text-ink mb-1.5
+           transition-colors duration-fast;
+  }
+
+  .re-label-dark {
+    @apply text-ink-inverse;
+  }
+
+  /* Floating label wrapper */
+  .re-field {
+    @apply relative;
+  }
+
+  /* ── STATUS BADGES ─────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5
+           text-xs font-semibold rounded-badge;
+  }
+
+  .badge-success {
+    @apply bg-emerald-50 text-success border border-emerald-200;
+  }
+
+  .badge-warning {
+    @apply bg-orange-50 text-warning border border-orange-200;
+  }
+
+  .badge-error {
+    @apply bg-red-50 text-error border border-red-200;
+  }
+
+  .badge-info {
+    @apply bg-sky-50 text-info border border-sky-200;
+  }
+
+  .badge-gold {
+    @apply bg-amber-50 text-gold border border-amber-200;
+  }
+
+  .badge-brand {
+    @apply bg-blue-50 text-brand border border-blue-200;
+  }
+
+  .badge-neutral {
+    @apply bg-surface text-ink-muted border border-surface-border;
+  }
+
+  /* ── KPI / STAT CARDS ──────────────────────────────────── */
+  .kpi-card {
+    @apply re-card p-6 flex flex-col gap-3;
+  }
+
+  .kpi-value {
+    @apply text-3xl font-bold text-ink tracking-tight;
+  }
+
+  .kpi-label {
+    @apply text-sm font-medium text-ink-muted;
+  }
+
+  .kpi-delta-up {
+    @apply text-xs font-semibold text-success flex items-center gap-1;
+  }
+
+  .kpi-delta-down {
+    @apply text-xs font-semibold text-error flex items-center gap-1;
+  }
+
+  /* ── DATA TABLE ────────────────────────────────────────── */
+  .re-table {
+    @apply w-full text-sm border-collapse;
+  }
+
+  .re-table thead tr {
+    @apply border-b border-surface-border bg-surface;
+  }
+
+  .re-table th {
+    @apply px-4 py-3 text-left text-xs font-semibold text-ink-muted uppercase tracking-wide;
+  }
+
+  .re-table tbody tr {
+    @apply border-b border-surface-border
+           transition-colors duration-micro ease-[cubic-bezier(0.4,0,0.2,1)]
+           hover:bg-blue-50/40;
+  }
+
+  .re-table td {
+    @apply px-4 py-3 text-ink;
+  }
+
+  /* ── MODAL ─────────────────────────────────────────────── */
+  .re-modal-overlay {
+    @apply fixed inset-0 z-modal
+           bg-ink/65 backdrop-blur-modal
+           flex items-center justify-center p-4
+           animate-fade-in;
+  }
+
+  .re-modal {
+    @apply bg-white rounded-modal shadow-modal w-full max-w-lg
+           animate-scale-in;
+  }
+
+  .re-modal-header {
+    @apply flex items-center justify-between px-6 py-4
+           border-b border-surface-border;
+  }
+
+  .re-modal-body {
+    @apply px-6 py-5;
+  }
+
+  .re-modal-footer {
+    @apply flex items-center justify-end gap-3 px-6 py-4
+           border-t border-surface-border;
+  }
+
+  /* ── SIDEBAR (ADMIN) ───────────────────────────────────── */
+  .re-sidebar {
+    @apply flex flex-col h-full bg-surface-dark border-r border-surface-border-dark
+           transition-all duration-slow ease-[cubic-bezier(0.4,0,0.2,1)];
+  }
+
+  .re-sidebar-item {
+    @apply relative flex items-center gap-3 px-4 py-2.5 mx-2 rounded-card
+           text-sm font-medium text-ink-subtle
+           transition-all duration-fast ease-[cubic-bezier(0.4,0,0.2,1)]
+           hover:bg-white/8 hover:text-ink-inverse;
+  }
+
+  .re-sidebar-item.active {
+    @apply bg-brand text-white shadow-card-md;
+  }
+
+  .re-sidebar-item.active::before {
+    content: '';
+    @apply absolute left-0 top-1/2 -translate-y-1/2
+           w-0.5 h-5 bg-brand-action rounded-full;
+  }
+
+  .re-sidebar-icon {
+    @apply size-4 flex-none
+           transition-transform duration-fast ease-[cubic-bezier(0.4,0,0.2,1)];
+  }
+
+  .re-sidebar-item:hover .re-sidebar-icon {
+    transform: scale(1.1);
+  }
+
+  /* ── TOAST NOTIFICATIONS ───────────────────────────────── */
+  .re-toast {
+    @apply flex items-start gap-3 px-4 py-3
+           bg-white rounded-card shadow-modal border border-surface-border
+           min-w-[280px] max-w-sm
+           animate-toast-in;
+  }
+
+  .re-toast-success { @apply border-l-4 border-l-success; }
+  .re-toast-error   { @apply border-l-4 border-l-error; }
+  .re-toast-warning { @apply border-l-4 border-l-warning; }
+  .re-toast-info    { @apply border-l-4 border-l-info; }
+
+  /* ── SKELETON LOADER ───────────────────────────────────── */
+  .re-skeleton {
+    @apply rounded-card bg-gradient-to-r
+           from-surface via-surface-border to-surface
+           bg-[length:400px_100%]
+           animate-skeleton;
+  }
+
+  /* ── SECTION ENTRY (page sections) ────────────────────── */
+  .re-section-enter {
+    @apply animate-fade-up;
+  }
+
+  /* ── PIPELINE CARD (drag-and-drop) ─────────────────────── */
+  .pipeline-card {
+    @apply re-card p-4 cursor-grab active:cursor-grabbing
+           select-none;
+  }
+
+  .pipeline-card:hover {
+    @apply shadow-card-lg -translate-y-1;
+  }
+
+  .pipeline-card.dragging {
+    @apply shadow-modal rotate-1 scale-105 opacity-90;
+  }
+
+  /* ── LIVE INDICATOR ────────────────────────────────────── */
+  .live-dot {
+    @apply inline-block size-2 rounded-full bg-success animate-pulse-dot;
+  }
+
+  /* ── GOLD / PREMIUM BADGE ──────────────────────────────── */
+  .premium-badge {
+    @apply badge badge-gold shadow-gold;
+  }
+
+  /* ── PAGE WRAPPER (for transitions) ────────────────────── */
+  .page-enter {
+    @apply animate-fade-up;
+  }
+}
+
+/* ─── UTILITY LAYER ───────────────────────────────────────── */
+@layer utilities {
+
+  /* Stagger animation delays */
+  .delay-50  { animation-delay: 50ms; }
+  .delay-100 { animation-delay: 100ms; }
+  .delay-150 { animation-delay: 150ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-250 { animation-delay: 250ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  /* Shimmer gradient (for skeleton + loading states) */
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      #f1f5f9 25%,
+      #e2e8f0 50%,
+      #f1f5f9 75%
+    );
+    background-size: 400px 100%;
+    animation: shimmer 1.6s linear infinite;
+  }
+
+  /* Gradient text (for hero headings) */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass card (for overlays on images) */
+  .glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Truncate multi-line */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Scrollbar styling */
+  .re-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .re-scrollbar::-webkit-scrollbar-track {
+    background: var(--color-surface);
+  }
+
+  .re-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 9999px;
+  }
+
+  .re-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-subtle);
+  }
+
+  /* Divider with label */
+  .re-divider {
+    @apply flex items-center gap-3 text-xs text-ink-subtle;
+  }
+
+  .re-divider::before,
+  .re-divider::after {
+    content: '';
+    @apply flex-1 h-px bg-surface-border;
+  }
+}
+
+/* ─── ADMIN DASHBOARD DARK THEME ──────────────────────────── */
+.admin-layout {
+  background-color: var(--color-surface-dark);
+  color: var(--color-ink-inverse);
+}
+
+.admin-card {
+  background-color: var(--color-card-dark);
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-card);
+}
+
+/* ─── PROPERTY CARD HOVER SYSTEM ──────────────────────────── */
+.property-card {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 3px 0 rgba(15,23,42,0.06);
+  transition:
+    transform var(--dur-slow) var(--ease-standard),
+    box-shadow var(--dur-slow) var(--ease-standard);
+}
+
+.property-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 25px -5px rgba(15,23,42,0.10),
+              0 8px 10px -6px rgba(15,23,42,0.06);
+}
+
+.property-card .card-image {
+  overflow: hidden;
+}
+
+.property-card .card-image img {
+  transition: transform var(--dur-slow) var(--ease-standard);
+}
+
+.property-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+/* ─── INPUT FOCUS ANIMATION ───────────────────────────────── */
+.re-input:focus {
+  border-color: var(--color-brand-action);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ─── PAGE TRANSITION WRAPPER ─────────────────────────────── */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--dur-page) var(--ease-standard),
+    transform var(--dur-page) var(--ease-standard);
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 200ms var(--ease-accel);
+}
+
+/* ─── CHART ANIMATIONS ────────────────────────────────────── */
+.chart-bar {
+  transform-origin: bottom;
+  animation: fade-up 0.4s var(--ease-decel) both;
+}
+
+.chart-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-in 1s var(--ease-decel) forwards;
+}
+
+/* ─── PIPELINE DRAG STATES ────────────────────────────────── */
+.pipeline-column {
+  transition: background-color var(--dur-fast) var(--ease-standard);
+}
+
+.pipeline-column.drag-over {
+  background-color: rgba(37, 99, 235, 0.05);
+  border-color: var(--color-brand-action);
+}
+
+/* ─── NOTIFICATION BADGE ──────────────────────────────────── */
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: var(--color-error);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scale-in 0.2s var(--ease-standard) both;
+}
+
+/* ─── PRINT STYLES ────────────────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; color: black; }
+  .re-card { box-shadow: none; border: 1px solid #e2e8f0; }
+}
+
+/* ─── REDUCED MOTION ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
